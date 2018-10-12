@@ -1,12 +1,3 @@
-class player{
-  constructor(letter)
-  {
-    this.letter = letter;
-    this.winner = false;
-  }
-}
-
-
 var winningRows =[
   [0,1,2],
   [3,4,5],
@@ -20,12 +11,14 @@ var winningRows =[
   [2,5,8]
 ];
 
-
+var isWinner = false;
 var grid = document.getElementsByTagName("td");
+var player2 = new agent("O");
 var player1 = new player("X");
-var player2 = new player("O");
 var turn = player1;
 setup();
+
+
 
 
 function Winner(player)
@@ -44,7 +37,6 @@ function Winner(player)
 
 function isPlayerWinner(player)
 {
-  var isWinner = false;
   for(var x = 0; x < winningRows.length; x++)
   {
     isWinner = true;
@@ -57,8 +49,15 @@ function isPlayerWinner(player)
       }
     }
     if(isWinner)
-    {Winner(player);}
+    {Winner(player); break;}
   }
+}
+
+function isDraw()
+{
+  for(var i = 0; i < grid.length; i++)
+  {if(grid[i].innerText == ""){return false;}}
+  return true;
 }
 
 
@@ -75,11 +74,16 @@ function makeMove()
   if(this.innerText == "")
   {
     this.innerHTML = turn.letter;
-    this.removeEventListener("click", makeMove)
     isPlayerWinner(turn);
+    if(isWinner)
+    {return;}
+    this.removeEventListener("click", makeMove)
+    if(isDraw())
+    {console.log("Game Draw"); return;}
     if(turn == player1)
     {
       turn = player2;
+      turn.makeMove();
     }
     else{turn = player1;}
   }
