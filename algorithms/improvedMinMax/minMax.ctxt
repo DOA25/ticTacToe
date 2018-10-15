@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=minMax
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=startPlayer
+comment2.target=void\ minMax(node)
+comment3.params=child
+comment3.target=int\ findValue(node)
+comment4.params=parent\ children
+comment4.target=void\ detLinks(node,\ java.util.ArrayList)
+comment5.params=parents\ children\ nOfLinksForParent
+comment5.target=void\ detLinks(java.util.ArrayList,\ java.util.ArrayList,\ int)
+comment6.params=parent\ children
+comment6.target=void\ linkChildren(node,\ node)
+comment7.params=list
+comment7.target=java.util.ArrayList\ createFinalChild(int[])
+comment8.params=n\ maxOrMin
+comment8.target=java.util.ArrayList\ createChildren(int,\ boolean)
+comment9.params=
+comment9.target=node\ returnStart()
+numComments=10
