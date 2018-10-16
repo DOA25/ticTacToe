@@ -5,7 +5,7 @@ class minMax{
   public static void main(String[] args) {
     node player = new nodeChild(true, null, null);
     node [] opl1 = new nodeChild[(int)Math.pow(2,1)];
-    int [] finalNum = {3,2,5,7,-1,-4,1,-17};
+    int [] finalNum = {3,2,5,7,-14,-4,-19,-17};
     opl1 = initNodes(opl1, false);
     node [] pl2 = new nodeChild[(int)Math.pow(2,2)];
     pl2 = initNodes(pl2, true);
@@ -14,8 +14,12 @@ class minMax{
     linkChildren(player,opl1);
     createLinks(opl1,pl2);
     createLinks(pl2,finalC);
-    findMinMaxLeft(player);
-    findMinMaxRight(player);
+    findMinMaxLeft(player.child1);
+    findMinMaxRight(player.child2);
+    findMinMaxLeft(player.child2);
+    findMinMaxRight(player.child1);
+    minMax(player.child1);
+    minMax(player.child2);
     minMax(player);
     System.out.println(player.value);
 
@@ -23,8 +27,8 @@ class minMax{
 
   public static void minMax(node p)
   {
-    nodeChild c1 = (nodeChild)p.child1;
-    nodeChild c2 = (nodeChild)p.child2;
+    nodeChild c1 = (nodeChild) p.child1;
+    nodeChild c2 = (nodeChild) p.child2;
     if(c1.minMax && c2.minMax)
     {
         if(p.child1.value > p.child2.value)
@@ -58,14 +62,14 @@ class minMax{
       nodeChild n = (nodeChild) x;
       if(n.minMax && n.child1.value > n.child2.value)
       {
-        n.value = n.child1.value;
+        x.value = n.child1.value;
       }
       else if(n.minMax && n.child1.value < n.child2.value)
-      {n.value = n.child2.value;}
+      {x.value = n.child2.value;}
       else{
         if(!n.minMax && n.child1.value < n.child2.value)
-        {n.value = n.child1.value;}
-        else{n.value = n.child2.value;}
+        {x.value = n.child1.value;}
+        else{x.value = n.child2.value;}
   }
 }
 

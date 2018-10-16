@@ -15,9 +15,8 @@ class minMax{
     detLinks(l2, finalChildren, 2);
     
     
-    minMax(startPlayer);
-    
-    System.out.println(startPlayer.value);
+   minMax(startPlayer);
+   System.out.println(startPlayer.value);
 
   }
 
@@ -25,32 +24,31 @@ class minMax{
   {    
          for(node child : startPlayer.children)
          {     
-        	 //!child.children.get(0).children.isEmpty() ||
             if(!child.children.get(0).children.isEmpty())
              { minMax(child);}
               child.value = findValue(child);
               
          }
+         startPlayer.value = findValue(startPlayer); 
 	  
-
   }
   
   public static int findValue(node child)
   {
-      int valHold = 0;
-    for(int i = 0; i < child.children.size(); i++)
+    int valHold = child.children.get(0).value;
+    for(int i = 1; i < child.children.size(); i++)
     {
+    	int getVal = child.children.get(i).value;
         if(child.minOrMax)
         {
-            if(child.children.get(i).value > valHold)
-            {valHold = child.children.get(i).value;}
+            if(getVal > valHold)
+            {valHold = getVal;}
         }
         else{
-            if(child.children.get(i).value < valHold)
-            {valHold = child.children.get(i).value;}
+            if(getVal < valHold)
+            {valHold = getVal;}
         }
     }
-    System.out.println(valHold);
     return valHold;
    }
 
