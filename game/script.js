@@ -1,4 +1,4 @@
-var winningRows =[
+ winningRows =[
   [0,1,2],
   [3,4,5],
   [6,7,8],
@@ -13,8 +13,8 @@ var winningRows =[
 
 var isWinner = false;
 var grid = document.getElementsByTagName("td");
-var player2 = new agent("O");
 var player1 = new player("X");
+var player2 = new ai("O", player1);
 var turn = player1;
 setup();
 
@@ -35,28 +35,28 @@ function Winner(player)
   }
 }
 
-function isPlayerWinner(player)
+function isPlayerWinner()
 {
   for(var x = 0; x < winningRows.length; x++)
   {
     isWinner = true;
     for(var y = 0; y < winningRows[x].length; y++)
     {
-      if(grid[winningRows[x][y]].innerText != player.letter)
+      if(grid[winningRows[x][y]].innerHTML != turn.letter)
       {
         isWinner = false;
         break;
       }
     }
     if(isWinner)
-    {Winner(player); break;}
+    {return isWinner;}
   }
 }
 
 function isDraw()
 {
   for(var i = 0; i < grid.length; i++)
-  {if(grid[i].innerText == ""){return false;}}
+  {if(grid[i].innerHTML == ""){return false;}}
   return true;
 }
 
@@ -71,12 +71,11 @@ function setup()
 
 function makeMove()
 {
-  if(this.innerText == "")
+  if(this.innerHTML == "")
   {
     this.innerHTML = turn.letter;
-    isPlayerWinner(turn);
-    if(isWinner)
-    {return;}
+    if(isPlayerWinner())
+    {Winner(turn);return;}
     this.removeEventListener("click", makeMove)
     if(isDraw())
     {console.log("Game Draw"); return;}
